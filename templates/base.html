@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1d2446">
+<meta name="description" content="Find products at participating nearby stores, compare stock confidence, and plan a smarter local shopping trip.">
+<title>{% block title %}Find it nearby{% endblock %} | NearCart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+{% block head %}{% endblock %}
+</head><body>
+<div class="announcement"><span class="pulse"></span><span>GOOD FINDS, AROUND THE CORNER</span><span class="announce-right">Your neighbourhood, better connected</span></div>
+<header class="nav-wrap"><a class="brand" href="/" aria-label="NearCart home"><span class="brand-mark">n<span>.</span></span><span>near<span class="brand-bold">cart</span><small>LOCAL FINDS. LESS GUESSWORK.</small></span></a>
+<nav id="main-nav"><a class="{{ 'nav-active' if request.path=='/' else '' }}" href="/">Home</a><a class="{{ 'nav-active' if request.path in ['/search'] or request.path.startswith('/product/') else '' }}" href="/search">Discover</a><a class="{{ 'nav-active' if request.path in ['/stores'] or request.path.startswith('/store/') else '' }}" href="/stores">Stores</a><a class="{{ 'nav-active' if request.path=='/deals' else '' }}" href="/deals">Best prices</a><a class="{{ 'nav-active' if request.path in ['/list','/plan','/compare','/alerts'] else '' }}" href="/list">My shopping <span id="nav-count" class="count">0</span></a><div class="nav-more"><button type="button" class="nav-more-button" onclick="document.getElementById('more-menu').classList.toggle('show')">More⌄</button><div id="more-menu" class="nav-more-menu"><a href="/plan">Trip planner ↗</a><a href="/compare">Compare items ↗</a><a href="/alerts">Stock watch ↗</a><a href="/retailers">Retailer studio ↗</a><a href="/about">How it works ↗</a><a href="/api-docs">Data & API ↗</a></div></div></nav>
+<a class="nav-cta" href="/search">Find an item <span>↗</span></a><button class="menu-toggle" aria-label="Toggle navigation" onclick="document.getElementById('main-nav').classList.toggle('nav-open')">☰</button>
+</header>
+{% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-wrap">{% for cat,msg in messages %}<div class="flash {{cat}}">{{msg}}</div>{% endfor %}</div>{% endif %}{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer><div class="footer-main"><div class="footer-brand-group"><a class="brand footer-brand" href="/"><span class="brand-mark">n<span>.</span></span><span>near<span class="brand-bold">cart</span><small>GOOD ERRANDS START HERE</small></span></a><p>Find what you need at a nearby shop, with stock freshness you can actually see.</p></div><div class="footer-col"><b>Explore</b><a href="/search">Product search</a><a href="/stores">Local stores</a><a href="/deals">Best local prices</a><a href="/plan">Trip planner</a></div><div class="footer-col"><b>Tools</b><a href="/compare">Compare products</a><a href="/alerts">Stock watch</a><a href="/retailers">Retailer studio</a><a href="/about">How it works</a><a href="/api-docs">Data & API</a></div><div class="footer-note"><span class="footer-star">✳</span><p>Availability reflects the latest catalogue update. For low-stock items, a quick call ahead is always sensible.</p></div></div><div class="footer-bottom"><span>© 2026 NearCart · Shop local, with a little more certainty</span><span>Map data © OpenStreetMap contributors · Services subject to usage policies</span></div></footer>
+<script src="{{ url_for('static',filename='app.js') }}"></script>{% block scripts %}{% endblock %}
+</body></html>

@@ -1,0 +1,7 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+nearcart.db
+.env
+.DS_Store
